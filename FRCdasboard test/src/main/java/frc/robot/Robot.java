@@ -58,7 +58,7 @@ public class Robot extends TimedRobot {
 
     // Optional: print timer in simulation for quick check
     if (isSimulation()) {
-      System.out.printf("[SIM TIMER] %.2f seconds\n", time);
+      //System.out.printf("[SIM TIMER] %.2f seconds\n", time);
     }
   }
 
