@@ -53,12 +53,12 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
 
     // Continuously update the timer value on NetworkTables
-    double time = matchTimer.get();
+    double time = matchTimer.get(); 
     timerEntry.setDouble(time);
 
     // Optional: print timer in simulation for quick check
     if (isSimulation()) {
-      //System.out.printf("[SIM TIMER] %.2f seconds\n", time);
+      System.out.printf("[SIM TIMER] %.2f seconds\n", time);
     }
   }
 
