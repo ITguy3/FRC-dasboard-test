@@ -11,6 +11,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -53,13 +54,9 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
 
     // Continuously update the timer value on NetworkTables
-    double time = matchTimer.get(); 
-    timerEntry.setDouble(time);
+    double time = Timer.getFPGATimestamp(); 
+    SmartDashboard.putNumber("matchTime", time);
 
-    // Optional: print timer in simulation for quick check
-    if (isSimulation()) {
-      System.out.printf("[SIM TIMER] %.2f seconds\n", time);
-    }
   }
 
   @Override

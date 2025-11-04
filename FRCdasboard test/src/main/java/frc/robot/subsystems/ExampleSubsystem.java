@@ -4,12 +4,22 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ExampleSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  public ExampleSubsystem() {}
+  public ExampleSubsystem() {
+  }
+
+  private SparkMax motor = new SparkMax(1, MotorType.kBrushless);
+  private RelativeEncoder builtInEncoder = motor.getEncoder();
 
   /**
    * Example command factory method.
@@ -19,10 +29,23 @@ public class ExampleSubsystem extends SubsystemBase {
   public Command exampleMethodCommand() {
     // Inline construction of command goes here.
     // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runOnce(
-        () -> {
-          /* one-time action goes here */
-        });
+    Command cmd = new Command() {
+      
+      @Override
+      public void execute() {
+        motor.setVoltage(2.67);
+        SmartDashboard.putNumber("RPM", builtInEncoder.getVelocity());
+      }
+
+      @Override
+      public void end(boolean interrupted) {
+        motor.setVoltage(0);
+        SmartDashboard.putNumber("RPM", 0.0);
+      }
+
+    };
+
+    return cmd;
   }
 
   /**
@@ -45,3 +68,4 @@ public class ExampleSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
 }
+ 
